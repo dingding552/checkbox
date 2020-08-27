@@ -1,0 +1,408 @@
+
+<div id="Agent-item">
+
+
+  <div local-class="agent-item-header clearfix">
+    <div local-class="agent-item-header-text"  >{{activeAgent.label}}</div>
+     <button {{action "deleteagent"}} class="ui red icon button rightmost">
+      <i class="minus icon no-side-margins"></i>
+    </button>
+  </div>
+
+<div local-class="item-seperation">
+<hr><i> URI</i>
+</div>
+
+<!--URI -->
+
+ <!-- <div local-class="item-seperation">
+        <hr><i></i>
+  </div>-->
+
+
+<div local-class="item-row clearfix">
+        <div local-class="item-row-title" data-tooltip="Agent's URI" data-position="top left">
+               URI:
+        </div>
+
+           <div local-class="item-row-content">
+             <div local-class="item-row-value" >
+                    {{activeAgent.uri}}
+             </div>
+           </div>
+</div>
+
+<!--</div>-->
+<!--        {{#if this.editagentURI}}-->
+<!--          <div local-class="item-row-content-edit">-->
+<!--            <div local-class="item-row-value">-->
+<!--              {{input value=activeAgent.uri}}-->
+<!--            </div>-->
+
+<!--            <div local-class="item-row-buttons">-->
+
+<!--              <button local-class="item-row-cancel" class="ui negative right icon button" {{action "cancel"}}>-->
+<!--                <i class="close icon no-side-margins"></i>-->
+<!--              </button>-->
+
+<!--              <button local-class="item-row-apply" class="ui positive right icon button" {{action "save" activeAgent.uri "http://www.w3.org/2000/01/rdf-schema#uri" activeAgent.uri "http://www.w3.org/2001/XMLSchema#string"}}>-->
+<!--                <i class="pencil icon no-side-margins"></i>-->
+<!--              </button>-->
+
+<!--            </div>-->
+<!--          </div>-->
+<!--        {{/if}}-->
+
+<!--        {{#unless this.editagentURI}}-->
+<!--          <div local-class="item-row-content" >-->
+<!--            <div local-class="item-row-value">-->
+<!--                                 <div local-class="hover-content" >-->
+<!--                                      {{ activeAgent.uri}}-->
+<!--                                  </div>-->
+<!--            </div>-->
+<!--            <div local-class="item-row-buttons">-->
+<!--              <button local-class="item-row-edit" class="ui yellow icon button rightmost" {{action "edit" "agenturi" activeAgent.uri}}>-->
+<!--                <i class="edit icon no-side-margins"></i>-->
+<!--              </button>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        {{/unless}}-->
+
+
+
+
+<!--  Label -->
+<div local-class="item-seperation">
+<hr><i> Label</i>
+</div>
+
+<div local-class="item-row clearfix">
+        <div local-class="item-row-title" data-tooltip="Manipulate Agent's Label" data-position="top left">Label:</div>
+
+        {{#if this.editLabel}}
+          <div local-class="item-row-content-edit">
+            <div local-class="item-row-value">
+              {{input value=activeAgent.label}}
+            </div>
+
+            <div local-class="item-row-buttons">
+
+              <button local-class="item-row-cancel" class="ui negative right icon button" {{action "cancel"}}>
+                <i class="close icon no-side-margins"></i>
+              </button>
+
+              <button local-class="item-row-apply" class="ui positive right icon button" {{action "save" activeAgent.uri "http://www.w3.org/2000/01/rdf-schema#label" activeAgent.label "http://www.w3.org/2001/XMLSchema#string"}}>
+                <i class="pencil icon no-side-margins"></i>
+              </button>
+
+            </div>
+          </div>
+        {{/if}}
+
+        {{#unless this.editLabel}}
+          <div local-class="item-row-content " >
+            <div local-class="item-row-value" >
+              {{activeAgent.label}}
+            </div>
+            <div local-class="item-row-buttons">
+              <button local-class="item-row-edit" class="ui yellow icon button rightmost" {{action "edit" "label" activeAgent.label}}>
+                <i class="edit icon no-side-margins"></i>
+              </button>
+            </div>
+          </div>
+        {{/unless}}
+
+</div>
+
+
+
+
+    <!--  Behavior-->
+
+<div local-class="item-seperation">
+<hr><i> Behavior</i>
+</div>
+
+  <div local-class="item-row clearfix">
+        <div local-class="item-row-title">
+           <div local-class="bloc1"  data-tooltip="Manipulate Agent's behaviors" data-position="top left">
+             Behavior:
+           </div>
+        </div>
+
+  {{#if this.editBehavior}}
+          <!--hash checkbox-->
+     <div local-class="border-line">
+           <div local-class="item-row-content " >
+
+            <div local-class="item-row-value" >
+
+          <!-- As a whole without using component-->
+    <input type="checkbox"  name= "behavior" checked={{this.isChecked}} />
+              {{input type="checkbox" name="isEmberized" checked=isEmberized}}
+
+            {{#checkbox-list items=availableBehaviors onCheck=(action "handleCheck") as |list|}}
+
+               <div  local-class="block"  >
+
+                           <div local-class="bloc1">
+                            {{list.checkbox }}
+
+                           </div>
+
+                            <div local-class="bloc2" data-tooltip={{ list.item.uri}} data-position="top left" >
+                              {{ list.item.label}}
+                            </div>
+               </div>
+
+            {{/checkbox-list}}
+          <p>Selected:</p>
+              <ul>
+                {{#each checkedPermissions as |permission|}}
+                  <li>{{permission.label}}</li>
+                     {{else}} <li>No BT selected yet.</li>
+                {{/each}}
+              </ul>
+
+            </div>
+           </div>
+
+
+        <div local-class="item-row-content " >
+
+            <div local-class="item-row-value" >
+        {{#newcheckbox-list items=availableBehaviors onnewCheck=(action "newhandlCheck") as |list|}}
+
+               <div  local-class="block"  >
+
+                           <div local-class="bloc1">
+                             {{list.checkbox}}
+                            {{list.checkbox.value }}
+
+                           </div>
+
+                            <div local-class="bloc2" data-tooltip={{ list.item.uri}} data-position="top left" >
+                              {{ list.item.label}}
+                            </div>
+               </div>
+
+            {{/newcheckbox-list}}
+
+
+
+        <p>newSelected:</p>
+              <ul>
+                {{#each newcheckedPermissions as |permission|}}
+                  <li>{{permission.label}}</li>
+                     {{else}} <li>No newBT selected yet.</li>
+                {{/each}}
+              </ul>
+
+            </div>
+        </div>
+
+          <div local-class="buttonrow">
+
+              <button local-class="item-row-apply" class="ui positive right icon button" {{action "savenewbehaviors" checkedPermissions }}>
+                <i class="pencil icon no-side-margins"></i>
+              </button>
+
+              <button local-class="item-row-cancel" class="ui negative right icon button" {{action "cancel"}}>
+                <i class="close icon no-side-margins"></i>
+              </button>
+
+
+         </div>
+          </div>
+        {{/if}}
+
+
+        {{#unless this.editBehavior}}
+          <div local-class="item-row-content" local-class="block"  >
+
+                <div local-class="item-row-value" local-class="bloc2" >
+                     {{#each activeAgent.behaviors as |behavior|}}
+                      <div local-class="bullet" >
+                        <li>
+                         <div local-class="bloc3" data-tooltip= {{ behavior.uri}} data-position="top left">
+                               {{behavior.label}}
+
+                          </div>
+                        </li>
+                       </div>
+
+                     {{/each}}
+                </div>
+
+                <div local-class="item-row-buttons">
+                  <button local-class="item-row-edit" class="ui yellow icon button rightmost" {{action "edit" "behavior"  activeAgent.behavior}}>
+                    <i class="edit icon no-side-margins"></i>
+                  </button>
+                </div>
+
+          </div>
+        {{/unless}}
+      </div>
+
+
+
+
+    <!--Event -->
+<div local-class="item-seperation">
+<hr><i>Event</i>
+</div>
+
+  <div local-class="item-row clearfix">
+        <div local-class="item-row-title">
+          <div local-class="bloc1"  data-tooltip="Manipulate Agent's events" data-position="top left">
+             Event:
+          </div>
+        </div>
+
+        {{#if this.editEvent}}
+        <div local-class="border-line">
+          {{#checkbox-list items=availableEvents onCheck=(action "handleCheck") as |list|}}
+
+                 <div local-class="block">
+
+                            <div local-class="bloc1" >
+                              {{list.checkbox}}
+
+                            </div>
+
+                            <div local-class="bloc2" data-tooltip={{ list.item.uri}} data-position="top left"  >
+                              {{ list.item.label}}
+                            </div>
+                  </div>
+
+          {{/checkbox-list}}
+
+            <p>Selected:</p>
+              <ul>
+                {{#each checkedPermissions as |permission|}}
+                  <li>{{permission.label}}</li>
+                     {{else}} <li>No BT selected yet.</li>
+                {{/each}}
+              </ul>
+
+          <div local-class="buttonrow">
+
+              <button local-class="item-row-apply" class="ui positive right icon button" {{action "savenewevents" checkedPermissions }}>
+                <i class="pencil icon no-side-margins"></i>
+              </button>
+
+              <button local-class="item-row-cancel" class="ui negative right icon button" {{action "cancel"}}>
+                <i class="close icon no-side-margins"></i>
+              </button>
+
+         </div>
+        </div>
+  <!--hash event checkbox-->
+        {{/if}}
+        {{#unless this.editEvent}}
+          <div local-class="item-row-content" local-class="block" >
+            <div local-class="item-row-value" local-class="bloc2" >
+
+               {{#each activeAgent.events as |event|}}
+                  <div local-class="bullet" >
+                    <li>
+                        <div local-class="bloc3" data-tooltip= {{ event.uri}} data-position="top left">
+                          <div >{{event.label}}  </div>
+                         </div>
+                    </li>
+
+                  </div>
+                 {{/each}}
+
+            </div>
+            <div local-class="item-row-buttons">
+              <button local-class="item-row-edit" class="ui yellow icon button rightmost" {{action "edit" "event"  activeAgent.event}}>
+                <i class="edit icon no-side-margins"></i>
+              </button>
+            </div>
+          </div>
+        {{/unless}}
+      </div>
+      <!-- -->
+
+
+
+
+  <!--Endpoint -->
+<div local-class="item-seperation">
+<hr><i> Endpoint</i>
+</div>
+
+  <div local-class="item-row clearfix">
+        <div local-class="item-row-title">
+           <div local-class="bloc1" data-tooltip="Manipulate Agent's endpoints" data-position="top left">
+             Endpoint:
+          </div>
+        </div>
+        {{#if this.editEndpoint}}
+       <div local-class="border-line">
+         {{#checkbox-list items=availableEndpoints onCheck=(action "handleCheck") as |list|}}
+
+               <div local-class="block">
+
+                            <div local-class="bloc1" >
+                              {{list.checkbox}}
+
+                            </div>
+
+                            <div local-class="bloc2" data-tooltip={{ list.item.uri}} data-position="top left" >
+                              {{ list.item.label}}
+                            </div>
+                </div>
+
+      {{/checkbox-list}}
+
+
+         <div local-class="buttonrow">
+
+              <button local-class="item-row-apply" class="ui positive right icon button" {{action "savenewendpoints" checkedPermissions }}>
+                <i class="pencil icon no-side-margins"></i>
+              </button>
+
+              <button local-class="item-row-cancel" class="ui negative right icon button" {{action "cancel"}}>
+                <i class="close icon no-side-margins"></i>
+              </button>
+
+         </div>
+       </div>
+        {{/if}}
+        {{#unless this.editEndpoint}}
+
+          <div local-class="item-row-content" local-class="block" >
+
+            <div local-class="item-row-value" local-class="bloc2">
+
+               {{#each activeAgent.endpoints as |endpoint|}}
+                 <div local-class="bullet" >
+                   <li >
+                         <div local-class="bloc3" data-tooltip={{ endpoint.uri}} data-position="top left" >
+                          {{endpoint.label}}
+                         </div>
+                   </li>
+                 </div>
+                 {{/each}}
+
+            </div>
+
+            <div local-class="item-row-buttons">
+              <button local-class="item-row-edit" class="ui yellow icon button rightmost" {{action "edit" "endpoint"  activeAgent.endpoint}}>
+                <i class="edit icon no-side-margins"></i>
+              </button>
+            </div>
+          </div>
+        {{/unless}}
+      </div>
+
+
+
+
+
+</div>
+
+
+
